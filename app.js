@@ -23,12 +23,12 @@ const GOOGLE_SHEETS_CSV_URL = "";
 /**
  * Número do WhatsApp para recebimento dos pedidos (DDI + DDD + Telefone, apenas números).
  */
-const WHATSAPP_PHONE_NUMBER = "5511964729650";
+const WHATSAPP_PHONE_NUMBER = "5511953161810";
 
 /**
  * Chave de armazenamento no LocalStorage para a sacola da Labela
  */
-const STORAGE_CART_KEY = "labela_cart_v1";
+const STORAGE_CART_KEY = "labela_cart_v2";
 
 /**
  * Imagem padrão caso algum produto não possua foto
@@ -38,33 +38,7 @@ const PLACEHOLDER_IMAGE = "assets/img/logo.jpeg";
 /**
  * Dados de demonstração (fallback inteligente)
  */
-const DEMO_PRODUCTS = [
-  {
-    id: "enfeite-de-porta-presepio",
-    nome: "Enfeite de Porta - Presépio",
-    categoria: "Natal & Decoração",
-    preco: 27.90,
-    descricao: "Enfeite de canto de porta (cantoneira de batente) com a cena tradicional do Presépio de Natal. Uma peça delicada e cheia de significado para acolher quem chega ao seu lar com o verdadeiro espírito natalino.\n\nEncaixe prático diretamente no batente da porta, moldura, janela ou prateleira.\n\n• Produção: Labela Personalizados & 3D\n• Fabricação: Impresso em 3D com alta precisão\n• Material: PLA ecológico e resistente\n• Cores disponíveis: Vermelho, Dourado, Bege, Verde e Branco",
-    imagens: [
-      "assets/img/products/Enfeite%20de%20Porta%20-%20Pres%C3%A9pio/image.jpg",
-      "assets/img/products/Enfeite%20de%20Porta%20-%20Pres%C3%A9pio/image.jpg%2001.jpg",
-      "assets/img/products/Enfeite%20de%20Porta%20-%20Pres%C3%A9pio/image.jpg%2002.jpg",
-      "assets/img/products/Enfeite%20de%20Porta%20-%20Pres%C3%A9pio/image.jpg%2003.jpg",
-      "assets/img/products/Enfeite%20de%20Porta%20-%20Pres%C3%A9pio/image.jpg%2004.jpg"
-    ]
-  },
-  {
-    id: "rolinha-esqueceram-de-mim",
-    nome: "Rolinha da Amizade (Esqueceram de Mim)",
-    categoria: "Presentes Afetivos",
-    preco: 12.90,
-    descricao: "Inspirada no clássico 'Esqueceram de Mim', um símbolo afetivo de união e lealdade para presentear quem você ama ou decorar sua árvore de Natal com significado.\n\n\"Enquanto cada um de nós tiver a sua rolinha, seremos amigos para sempre.\"\n\n• Produção: Labela Personalizados & 3D\n• Fabricação: Impresso em 3D com alta precisão\n• Material: PLA ecológico e resistente\n• Cor: Branco Off-white perolado",
-    imagens: [
-      "assets/img/products/rolinha-esqueceram-de-mim/rolinha%20capa.jpeg",
-      "assets/img/products/rolinha-esqueceram-de-mim/rolinha%2001.jpeg"
-    ]
-  }
-];
+const DEMO_PRODUCTS = typeof PRODUCTS !== "undefined" ? PRODUCTS : [];
 
 // ==============================================================================
 // 2. ESTADO GLOBAL DA APLICAÇÃO (STATE MANAGEMENT)
@@ -401,14 +375,25 @@ function renderCategoryFilters() {
     return;
   }
 
+  const totalCount = AppState.products.length;
+  const isAllActive = AppState.selectedCategory === "all";
+
   container.classList.remove("hidden");
   container.innerHTML = [
-    `<button class="category-btn ${AppState.selectedCategory === 'all' ? 'active bg-crimson-700 text-white shadow-md shadow-crimson-900/15 font-bold border border-gold-300/40' : 'bg-champagne-50 text-gold-800 hover:bg-champagne-200/70 border border-gold-400/40 font-semibold'} px-4 py-2 rounded-full text-xs transition-all whitespace-nowrap" data-category="all">★ Todas as Peças</button>`,
-    ...categories.map(cat => `
-      <button class="category-btn ${AppState.selectedCategory === cat ? 'active bg-crimson-700 text-white shadow-md shadow-crimson-900/15 font-bold border border-gold-300/40' : 'bg-champagne-50 text-gold-800 hover:bg-champagne-200/70 border border-gold-400/40 font-semibold'} px-4 py-2 rounded-full text-xs transition-all whitespace-nowrap" data-category="${cat}">
-        ♥ ${cat}
-      </button>
-    `)
+    `<button type="button" class="category-btn inline-flex items-center gap-1.5 ${isAllActive ? 'active bg-crimson-700 text-white shadow-md shadow-crimson-900/15 font-bold border border-gold-300/40' : 'bg-champagne-50 text-gold-800 hover:bg-champagne-200/70 border border-gold-400/40 font-semibold'} px-3.5 py-2 rounded-full text-xs transition-all cursor-pointer" data-category="all">
+      <span>★ Todas as Peças</span>
+      <span class="${isAllActive ? 'bg-crimson-900/70 text-gold-200' : 'bg-champagne-200 text-gold-800'} text-[10px] px-1.5 py-0.5 rounded-full font-bold leading-none">${totalCount}</span>
+    </button>`,
+    ...categories.map(cat => {
+      const count = AppState.products.filter(p => p.categoria === cat).length;
+      const isActive = AppState.selectedCategory === cat;
+      return `
+        <button type="button" class="category-btn inline-flex items-center gap-1.5 ${isActive ? 'active bg-crimson-700 text-white shadow-md shadow-crimson-900/15 font-bold border border-gold-300/40' : 'bg-champagne-50 text-gold-800 hover:bg-champagne-200/70 border border-gold-400/40 font-semibold'} px-3.5 py-2 rounded-full text-xs transition-all cursor-pointer" data-category="${cat}">
+          <span>${cat}</span>
+          <span class="${isActive ? 'bg-crimson-900/70 text-gold-200' : 'bg-champagne-200 text-gold-800'} text-[10px] px-1.5 py-0.5 rounded-full font-bold leading-none">${count}</span>
+        </button>
+      `;
+    })
   ].join("");
 
   container.querySelectorAll(".category-btn").forEach(btn => {
