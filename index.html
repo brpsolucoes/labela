@@ -138,7 +138,7 @@
           <input 
             type="text" 
             id="searchInput"
-            placeholder="Buscar enfeites, presépios, lembranças 3D..." 
+            placeholder="Buscar enfeites, chaveiros, presentes 3D..." 
             class="w-full pl-10 pr-4 py-2.5 rounded-full text-sm bg-champagne-100/90 border border-gold-300/50 focus:border-crimson-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-crimson-500/15 transition-all text-gold-900 placeholder-gold-700/50"
           >
           <svg class="w-4 h-4 text-gold-600 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -182,21 +182,6 @@
         </button>
       </div>
 
-    </div>
-
-    <!-- Barra de busca Mobile -->
-    <div class="max-w-7xl mx-auto mt-2.5 md:hidden">
-      <div class="relative">
-        <input 
-          type="text" 
-          id="searchMobileInput"
-          placeholder="Buscar personalizados e peças de Natal..." 
-          class="w-full pl-10 pr-4 py-2.5 rounded-full text-sm bg-champagne-50/95 border border-gold-400/40 focus:border-crimson-600 focus:bg-white focus:outline-none transition-all text-gold-900 shadow-sm"
-        >
-        <svg class="w-4 h-4 text-gold-600 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-        </svg>
-      </div>
     </div>
   </header>
 
@@ -460,26 +445,41 @@
       <p id="productsCount" class="text-xs sm:text-sm text-gold-700 font-medium">Carregando peças exclusivas...</p>
     </div>
 
-    <!-- Barra de Filtros (Categorias em Pílulas Flexíveis + Ordenação) -->
-    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8 pb-5 border-b border-gold-400/30">
-      
-      <!-- Pílulas de Categoria Dinâmicas (Quebra de linha automática sem scroll horizontal oculto) -->
-      <div id="categoryFilters" class="flex-1 flex flex-wrap items-center gap-2 hidden">
-        <!-- Injetado via JS -->
+    <!-- Barra de Filtros (Busca Mobile + Categorias em Pílulas Flexíveis + Ordenação) -->
+    <div class="flex flex-col gap-4 mb-8 pb-5 border-b border-gold-400/30">
+
+      <!-- Busca Mobile integrada ao Catálogo (não fica flutuando fixa no topo da tela) -->
+      <div class="relative md:hidden">
+        <input 
+          type="text" 
+          id="searchMobileInput"
+          placeholder="Buscar enfeites, chaveiros, presentes 3D..." 
+          class="w-full pl-10 pr-4 py-2.5 rounded-full text-sm bg-champagne-50 border border-gold-400/50 focus:border-crimson-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-crimson-500/15 transition-all text-gold-900 placeholder-gold-700/55 shadow-xs"
+        >
+        <svg class="w-4 h-4 text-gold-600 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
       </div>
 
-      <!-- Ordenação -->
-      <div class="flex items-center justify-end gap-2 flex-shrink-0 self-end lg:self-center">
-        <label for="sortSelect" class="text-xs sm:text-sm text-gold-800 font-medium whitespace-nowrap">Ordenar por:</label>
-        <select 
-          id="sortSelect"
-          class="bg-champagne-50 border border-gold-400/50 text-gold-900 text-xs sm:text-sm rounded-full px-4 py-2 focus:ring-2 focus:ring-crimson-600 focus:outline-none shadow-xs font-semibold cursor-pointer"
-        >
-          <option value="default">Destaques da Coleção</option>
-          <option value="price-asc">Menor Preço</option>
-          <option value="price-desc">Maior Preço</option>
-          <option value="name-asc">Nome (A - Z)</option>
-        </select>
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <!-- Pílulas de Categoria Dinâmicas (Quebra de linha automática sem scroll horizontal oculto) -->
+        <div id="categoryFilters" class="flex-1 flex flex-wrap items-center gap-2 hidden">
+          <!-- Injetado via JS -->
+        </div>
+
+        <!-- Ordenação -->
+        <div class="flex items-center justify-between sm:justify-end gap-2 flex-shrink-0 w-full sm:w-auto pt-1 lg:pt-0">
+          <label for="sortSelect" class="text-xs sm:text-sm text-gold-800 font-medium whitespace-nowrap">Ordenar por:</label>
+          <select 
+            id="sortSelect"
+            class="bg-champagne-50 border border-gold-400/50 text-gold-900 text-xs sm:text-sm rounded-full px-4 py-2 focus:ring-2 focus:ring-crimson-600 focus:outline-none shadow-xs font-semibold cursor-pointer"
+          >
+            <option value="default">Destaques da Coleção</option>
+            <option value="price-asc">Menor Preço</option>
+            <option value="price-desc">Maior Preço</option>
+            <option value="name-asc">Nome (A - Z)</option>
+          </select>
+        </div>
       </div>
     </div>
 
