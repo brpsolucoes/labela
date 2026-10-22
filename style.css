@@ -1,0 +1,282 @@
+/* ==========================================================================
+   LABELA - PERSONALIZADOS & 3D
+   Inspiração Visual: Gifter Greeting Card (TemplateMonster 74228)
+   Paleta: Vermelho Natalino, Dourado/Bronze da Logo, Bege Champagne & Salmão Rosé
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tipografia & Fontes (Gifter Script + Editorial Serif + Clean Sans)
+   -------------------------------------------------------------------------- */
+.font-script {
+  font-family: 'Great Vibes', cursive;
+}
+
+.font-serif-brand {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+
+.font-sans-ui {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* --------------------------------------------------------------------------
+   2. Texturas & Fundos (Vermelho Veludo, Dourado & Bege da Logo)
+   -------------------------------------------------------------------------- */
+.bg-champagne-logo {
+  background-color: #F5E6D6;
+  background-image: 
+    radial-gradient(at 15% 15%, rgba(223, 168, 152, 0.18) 0px, transparent 50%),
+    radial-gradient(at 85% 80%, rgba(200, 150, 82, 0.14) 0px, transparent 55%);
+}
+
+.bg-crimson-velvet {
+  background: radial-gradient(circle at 65% 30%, #A8242B 0%, #7D171D 48%, #4F0C10 100%);
+}
+
+.bg-gold-shimmer {
+  background: linear-gradient(135deg, #E5C17B 0%, #C89652 50%, #9B6B34 100%);
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #8C5E37 0%, #C89652 50%, #7A4F2B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   3. Faixa / Fita Dobrada Estilo Gifter 74228 (Red & Gold Ribbon)
+   -------------------------------------------------------------------------- */
+.gifter-ribbon-stack {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.gifter-ribbon-band {
+  background: linear-gradient(135deg, #C9353B 0%, #9E2127 100%);
+  color: #FFFDF9;
+  padding: 0.35rem 1.75rem;
+  transform: rotate(-3deg);
+  box-shadow: 0 8px 20px -4px rgba(125, 23, 29, 0.35);
+  border: 1px solid rgba(230, 190, 122, 0.45);
+  position: relative;
+}
+
+.gifter-ribbon-band-alt {
+  background: linear-gradient(135deg, #8E1B20 0%, #681115 100%);
+  color: #F7DFB3;
+  padding: 0.25rem 1.35rem;
+  transform: rotate(2deg) translateY(-2px);
+  box-shadow: 0 6px 16px -4px rgba(79, 12, 16, 0.4);
+  border: 1px solid rgba(230, 190, 122, 0.35);
+}
+
+/* --------------------------------------------------------------------------
+   4. Enfeites Pendurados (Gifter Hanging Baubles & Strings)
+   -------------------------------------------------------------------------- */
+@keyframes pendulumSway {
+  0%, 100% {
+    transform: rotate(-3.5deg);
+  }
+  50% {
+    transform: rotate(3.5deg);
+  }
+}
+
+@keyframes pendulumSwayReverse {
+  0%, 100% {
+    transform: rotate(3deg);
+  }
+  50% {
+    transform: rotate(-3deg);
+  }
+}
+
+.hanging-ornament {
+  transform-origin: top center;
+  animation: pendulumSway 5.5s ease-in-out infinite;
+}
+
+.hanging-ornament-reverse {
+  transform-origin: top center;
+  animation: pendulumSwayReverse 6.5s ease-in-out infinite;
+}
+
+.hanging-ornament-slow {
+  transform-origin: top center;
+  animation: pendulumSway 7.5s ease-in-out 1s infinite;
+}
+
+.bauble-circle {
+  box-shadow: 
+    0 12px 28px -6px rgba(122, 48, 34, 0.14),
+    0 4px 10px -2px rgba(140, 94, 55, 0.08),
+    inset 0 0 0 1px rgba(200, 150, 82, 0.28);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bauble-circle:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 
+    0 20px 35px -8px rgba(158, 33, 39, 0.2),
+    0 6px 14px -2px rgba(200, 150, 82, 0.2),
+    inset 0 0 0 1.5px rgba(200, 150, 82, 0.55);
+}
+
+/* --------------------------------------------------------------------------
+   5. Molduras de Cartão Comemorativo & Cards do Catálogo (Atelier Style)
+   -------------------------------------------------------------------------- */
+.greeting-card-shell {
+  box-shadow: 
+    0 25px 60px -15px rgba(92, 42, 28, 0.16),
+    0 0 0 1px rgba(200, 150, 82, 0.25);
+}
+
+.atelier-product-card {
+  background: #FFFDF9;
+  border-radius: 1.75rem;
+  border: 1px solid rgba(200, 150, 82, 0.28);
+  box-shadow: 
+    0 8px 26px -6px rgba(122, 65, 40, 0.07),
+    0 2px 6px -1px rgba(0, 0, 0, 0.02);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.atelier-product-card::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border-radius: 1.45rem;
+  border: 1px dashed rgba(200, 150, 82, 0.22);
+  pointer-events: none;
+  transition: border-color 0.35s ease;
+}
+
+.atelier-product-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(184, 51, 54, 0.45);
+  box-shadow: 
+    0 20px 42px -10px rgba(139, 30, 36, 0.14),
+    0 8px 18px -4px rgba(200, 150, 82, 0.15);
+}
+
+.atelier-product-card:hover::after {
+  border-color: rgba(200, 150, 82, 0.5);
+}
+
+/* Polaroid Collage Cards no Hero (Inspirado nos cards de fotos do Gifter 74228) */
+.polaroid-card {
+  background: #FFFDF9;
+  padding: 0.75rem 0.75rem 1.1rem 0.75rem;
+  border-radius: 1.25rem;
+  box-shadow: 
+    0 20px 45px -10px rgba(35, 5, 7, 0.55),
+    0 0 0 1px rgba(230, 190, 122, 0.35);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.polaroid-card:hover {
+  transform: rotate(0deg) scale(1.04) translateY(-4px) !important;
+  z-index: 30;
+  box-shadow: 
+    0 25px 55px -10px rgba(35, 5, 7, 0.7),
+    0 0 0 2px #E5C17B;
+}
+
+/* --------------------------------------------------------------------------
+   6. Animações de Entrada, Brilho & Flutuação
+   -------------------------------------------------------------------------- */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes starTwinkle {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.85) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(12deg);
+  }
+}
+
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.modal-enter {
+  animation: fadeInScale 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.toast-enter {
+  animation: slideUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.star-twinkle {
+  animation: starTwinkle 3.2s ease-in-out infinite;
+}
+
+.star-twinkle-delayed {
+  animation: starTwinkle 4s ease-in-out 1.4s infinite;
+}
+
+.animate-float-gentle {
+  animation: floatGentle 5s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   7. Canvas de Neve & Estrelas Douradas (Gifter HTML5 Canvas)
+   -------------------------------------------------------------------------- */
+#snowCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 25;
+  opacity: 0.85;
+  transition: opacity 0.4s ease;
+}
+
+#snowCanvas.snow-disabled {
+  opacity: 0;
+}
+
+/* --------------------------------------------------------------------------
+   8. Utilitários
+   -------------------------------------------------------------------------- */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

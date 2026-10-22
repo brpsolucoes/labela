@@ -1,49 +1,881 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Labela</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Labela | Personalizados & Impressão 3D — Especial de Natal</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="assets/img/logo.jpeg">
+  <link rel="apple-touch-icon" href="assets/img/logo.jpeg">
+  
+  <!-- Google Fonts: Great Vibes (Gifter Script) + Cormorant Garamond (Logo Serif) + Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            script: ['"Great Vibes"', 'cursive'],
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            crimson: {
+              50: '#fdf3f3',
+              100: '#fbe5e5',
+              200: '#f7cfcf',
+              300: '#efa8a9',
+              400: '#e27476',
+              500: '#cd4649',
+              600: '#b83336',
+              700: '#992427',
+              800: '#7f2023',
+              900: '#681c1f',
+              950: '#420b0d',
+            },
+            salmon: {
+              50: '#fdf7f5',
+              100: '#faede8',
+              200: '#f3d9cf',
+              300: '#dfa898',
+              400: '#cf8976',
+              500: '#bc6b56',
+              600: '#a45440',
+            },
+            gold: {
+              50: '#fdfaf3',
+              100: '#f9f1de',
+              200: '#f1dfb8',
+              300: '#e6be7a',
+              400: '#d4a359',
+              500: '#c89652',
+              600: '#a67546',
+              700: '#8c5e37',
+              800: '#6e4726',
+              900: '#59391f',
+            },
+            champagne: {
+              50: '#fffdf9',
+              100: '#faf3eb',
+              200: '#f5e6d6',
+              300: '#ebd3ba',
+              400: '#dec0a1',
+            }
+          }
         }
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #f8fafc;
-            color: #0f172a;
-        }
-        .container {
-            text-align: center;
-            padding: 2.5rem;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            max-width: 480px;
-            width: 90%;
-        }
-        h1 {
-            font-size: 2.25rem;
-            margin-bottom: 0.75rem;
-            color: #1e293b;
-        }
-        p {
-            color: #64748b;
-            font-size: 1.1rem;
-            line-height: 1.5;
-        }
-    </style>
+      }
+    }
+  </script>
+
+  <!-- Estilos Customizados (Inspiração Gifter 74228 + Paleta Labela) -->
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div class="container">
-        <h1>Labela</h1>
-        <p>Página inicial em construção.</p>
+<body id="top" class="bg-champagne-100 text-gold-900 font-sans antialiased min-h-screen flex flex-col selection:bg-crimson-700 selection:text-white relative overflow-x-hidden">
+
+  <!-- Canvas interativo para neve e estrelas douradas (Inspirado no HTML5 Canvas do Gifter 74228) -->
+  <canvas id="snowCanvas" aria-hidden="true"></canvas>
+
+  <!-- ========================================================================= -->
+  <!-- TOP BAR FESTIVA EM VERMELHO VELUDO & DOURADO                              -->
+  <!-- ========================================================================= -->
+  <div class="bg-crimson-950 text-champagne-100 text-xs py-2.5 px-4 border-b border-gold-500/30 relative z-30">
+    <div class="max-w-7xl mx-auto flex flex-wrap sm:flex-nowrap items-center justify-center sm:justify-between gap-3">
+      <div class="flex items-center gap-2 text-center sm:text-left">
+        <span class="text-gold-300 star-twinkle text-sm">★</span>
+        <span class="font-medium tracking-wide">
+          Especial de Natal <strong class="text-gold-300 font-semibold">Labela</strong>: Presentes afetivos, personalizados &amp; <strong class="text-salmon-300 font-semibold">Impressão 3D</strong>
+        </span>
+        <span class="hidden md:inline text-champagne-300/75">• Produção artesanal sob encomenda</span>
+      </div>
+
+      <!-- Seletor de Intensidade da Neve & Estrelas -->
+      <button 
+        id="toggleSnowBtn" 
+        class="inline-flex items-center gap-1.5 text-[11px] text-champagne-100 hover:text-white bg-crimson-900/90 hover:bg-crimson-800 px-3.5 py-1 rounded-full transition-all border border-gold-400/40 cursor-pointer shadow-xs active:scale-95 whitespace-nowrap"
+        title="Alternar intensidade da neve e estrelas douradas"
+      >
+        <span id="snowIcon">✨</span>
+        <span id="snowStatusText" class="font-medium">Magia: Intensa</span>
+      </button>
     </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- HEADER EM PÍLULA FLUTUANTE (ESTILO GIFTER 74228 CARD 3)                   -->
+  <!-- ========================================================================= -->
+  <header class="sticky top-3 z-30 px-3 sm:px-6 lg:px-8 pt-2 transition-all">
+    <div class="max-w-7xl mx-auto bg-champagne-50/95 backdrop-blur-md rounded-full border border-gold-400/40 shadow-lg shadow-gold-900/5 px-4 sm:px-7 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Marca / Logo Labela -->
+      <a href="#top" class="flex items-center gap-3.5 group">
+        <div class="relative p-0.5 rounded-full bg-champagne-200 border-2 border-gold-400/60 shadow-sm group-hover:border-crimson-600 transition-colors overflow-hidden w-12 h-12 sm:w-14 sm:h-14 flex-shrink-0">
+          <img 
+            src="assets/img/logo.jpeg" 
+            alt="Labela Personalizados & 3D" 
+            class="w-full h-full object-cover rounded-full group-hover:scale-105 transition-transform duration-500"
+          >
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-1.5">
+            <span class="font-serif text-2xl sm:text-3xl font-bold tracking-wider text-gold-800 group-hover:text-crimson-700 transition-colors uppercase">Labela</span>
+            <span class="text-salmon-400 text-xs">♥</span>
+          </div>
+          <span class="text-[10px] text-gold-700 font-semibold tracking-[0.22em] uppercase">Personalizados &amp; 3D</span>
+        </div>
+      </a>
+
+      <!-- Links Rápidos estilo Gifter + Busca Desktop -->
+      <div class="flex-1 max-w-md hidden md:block">
+        <div class="relative">
+          <input 
+            type="text" 
+            id="searchInput"
+            placeholder="Buscar enfeites, presépios, lembranças 3D..." 
+            class="w-full pl-10 pr-4 py-2.5 rounded-full text-sm bg-champagne-100/90 border border-gold-300/50 focus:border-crimson-600 focus:bg-white focus:outline-none focus:ring-2 focus:ring-crimson-500/15 transition-all text-gold-900 placeholder-gold-700/50"
+          >
+          <svg class="w-4 h-4 text-gold-600 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Ações Direita: Círculos Sociais estilo Gifter + Botão Carrinho Vermelho & Dourado -->
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <a 
+          href="#catalogo" 
+          class="hidden lg:inline-flex text-xs font-bold uppercase tracking-widest text-gold-800 hover:text-crimson-700 px-3 py-2 transition-colors"
+        >
+          Catálogo
+        </a>
+
+        <a 
+          href="https://wa.me/5511964729650?text=Ol%C3%A1%2C%20Labela!%20Gostaria%20de%20conhecer%20o%20cat%C3%A1logo%20de%20Natal%20e%20personalizados%203D." 
+          target="_blank" 
+          rel="noopener"
+          class="w-10 h-10 rounded-full bg-champagne-200/80 hover:bg-crimson-700 text-crimson-700 hover:text-white border border-gold-400/40 flex items-center justify-center transition-all shadow-xs"
+          title="Atendimento via WhatsApp"
+          aria-label="Falar no WhatsApp"
+        >
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.698.057-1.114-.076-.26-.083-.591-.202-1.025-.391-1.832-.799-3.033-2.656-3.125-2.778-.092-.122-.743-.988-.743-1.884 0-.897.469-1.339.636-1.512.167-.173.365-.216.486-.216.122 0 .243.001.348.006.111.006.26-.042.406.31.152.366.517 1.264.563 1.356.046.091.076.198.015.319-.06.122-.091.198-.182.304-.091.107-.193.238-.276.32-.092.091-.188.19-.08.376.107.185.474.781 1.017 1.265.7.625 1.291.819 1.474.91.183.091.29.076.396-.046.107-.122.457-.533.579-.715.122-.183.244-.152.41-.091.168.06 1.066.502 1.249.593.183.092.305.137.35.213.046.077.046.444-.098.849zM12 2C6.477 2 2 6.477 2 12c0 1.891.528 3.659 1.444 5.176L2 22l4.982-1.306C8.423 21.536 10.15 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+          </svg>
+        </a>
+
+        <button 
+          id="cartHeaderBtn"
+          class="relative flex items-center gap-2.5 px-4 sm:px-5 py-2.5 rounded-full bg-crimson-700 hover:bg-crimson-800 text-white active:scale-95 transition-all text-xs sm:text-sm font-bold shadow-md shadow-crimson-900/20 group border border-gold-300/40"
+          aria-label="Abrir Sacola de Pedidos"
+        >
+          <svg class="w-4 h-4 text-gold-300 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+          <span class="hidden sm:inline">Minha Sacola</span>
+          <span id="headerCartCount" class="bg-gold-300 text-crimson-950 text-xs px-2 py-0.5 rounded-full font-black shadow-xs">0</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Barra de busca Mobile -->
+    <div class="max-w-7xl mx-auto mt-2.5 md:hidden">
+      <div class="relative">
+        <input 
+          type="text" 
+          id="searchMobileInput"
+          placeholder="Buscar personalizados e peças de Natal..." 
+          class="w-full pl-10 pr-4 py-2.5 rounded-full text-sm bg-champagne-50/95 border border-gold-400/40 focus:border-crimson-600 focus:bg-white focus:outline-none transition-all text-gold-900 shadow-sm"
+        >
+        <svg class="w-4 h-4 text-gold-600 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- HERO CARTÃO DE NATAL DIVIDIDO EM ONDA S (INSPIRADO NO GIFTER 74228)       -->
+  <!-- ========================================================================= -->
+  <section class="relative max-w-7xl mx-auto w-full px-3 sm:px-6 lg:px-8 pt-6 pb-10">
+    
+    <div class="greeting-card-shell rounded-[2.25rem] overflow-hidden bg-champagne-logo relative grid grid-cols-1 lg:grid-cols-12 min-h-[560px]">
+      
+      <!-- ===================================================================== -->
+      <!-- COLUNA ESQUERDA: CARTÃO CHAMPAGNE & TIPOGRAFIA CALIGRÁFICA GIFTER     -->
+      <!-- ===================================================================== -->
+      <div class="lg:col-span-6 p-8 sm:p-12 lg:p-14 flex flex-col justify-center items-center lg:items-start text-center lg:text-left relative z-20">
+        
+        <!-- Ornamento Minimalista de Topo (Árvore & Traço Dourado + Coração Salmão da Logo) -->
+        <div class="flex flex-col items-center lg:items-start mb-3">
+          <div class="flex items-center gap-3">
+            <span class="text-gold-500 text-base star-twinkle">★</span>
+            <!-- Ícone minimalista caligráfico inspirado na árvore do Gifter + coração da Labela -->
+            <svg class="w-10 h-10 text-crimson-700" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M32 8C28 18 18 24 18 24C24 25 28 24 31 22C26 32 14 39 14 39C22 40 28 38 31 36C25 46 12 52 12 52H52C52 52 39 46 33 36C36 38 42 40 50 39C50 39 38 32 33 22C36 24 40 25 46 24C46 24 36 18 32 8Z" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="32" cy="6" r="2.5" fill="#C89652"/>
+            </svg>
+            <span class="text-gold-500 text-base star-twinkle-delayed">★</span>
+          </div>
+        </div>
+
+        <!-- Fita Dobrada Vermelha & Dourada estilo Gifter 74228 -->
+        <div class="gifter-ribbon-stack mb-5">
+          <div class="gifter-ribbon-band rounded-md">
+            <span class="font-script text-2xl sm:text-3xl tracking-wide">Especial de Natal</span>
+          </div>
+          <div class="gifter-ribbon-band-alt rounded-md">
+            <span class="text-[10px] sm:text-xs font-extrabold tracking-[0.25em] uppercase">Personalizados &amp; Impressão 3D</span>
+          </div>
+        </div>
+
+        <!-- Título Principal Editorial -->
+        <h1 class="font-serif text-4xl sm:text-5xl lg:text-[3.4rem] font-bold text-gold-900 leading-[1.08] tracking-tight">
+          Presentes que Contam <br class="hidden sm:inline">
+          <span class="text-crimson-700 italic font-semibold">Histórias de Afeto</span>
+        </h1>
+
+        <!-- Divisor Delicado da Logo Labela (Linha Bronze + Coração Salmão) -->
+        <div class="flex items-center justify-center lg:justify-start gap-3 my-4 w-full max-w-xs">
+          <span class="h-[1px] flex-1 bg-gold-600/40"></span>
+          <span class="text-salmon-400 text-base leading-none">♥</span>
+          <span class="text-gold-500 text-xs leading-none">✦</span>
+          <span class="text-salmon-400 text-base leading-none">♥</span>
+          <span class="h-[1px] flex-1 bg-gold-600/40"></span>
+        </div>
+
+        <!-- Mensagem estilo Cartão de Boas-Festas Gifter -->
+        <p class="text-gold-800/90 text-sm sm:text-base leading-relaxed max-w-md font-normal">
+          Que a magia deste fim de ano toque o seu lar de forma única. Criamos enfeites natalinos, presépios e lembranças personalizadas em <strong class="text-crimson-800 font-semibold">impressão 3D de alta precisão</strong> com acabamento artesanal.
+        </p>
+
+        <!-- Assinatura estilo Gifter ("Labela Atelier") -->
+        <p class="font-script text-2xl text-gold-700 mt-3">
+          Com carinho, Equipe Labela
+        </p>
+
+        <!-- Botões de Ação -->
+        <div class="mt-7 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 w-full sm:w-auto">
+          <a 
+            href="#catalogo" 
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-crimson-700 hover:bg-crimson-800 text-white font-bold text-sm shadow-xl shadow-crimson-900/25 active:scale-95 transition-all group border border-gold-300/40"
+          >
+            <span class="text-gold-300">★</span>
+            <span>Ver Catálogo de Natal</span>
+            <span class="group-hover:translate-x-1 transition-transform">→</span>
+          </a>
+
+          <a 
+            href="https://wa.me/5511964729650?text=Ol%C3%A1%2C%20Labela!%20Gostaria%20de%20encomendar%20um%20personalizado%20de%20Natal." 
+            target="_blank" 
+            rel="noopener"
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-champagne-50 hover:bg-white text-gold-900 font-bold text-sm border border-gold-500/40 shadow-sm active:scale-95 transition-all"
+          >
+            <span class="text-crimson-600">♥</span>
+            <span>Encomenda Personalizada</span>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- ===================================================================== -->
+      <!-- COLUNA DIREITA: CÉU VERMELHO VELUDO COM CURVA S, LUA E POLAROIDS      -->
+      <!-- ===================================================================== -->
+      <div class="lg:col-span-6 bg-crimson-velvet relative min-h-[440px] lg:min-h-full flex items-center justify-center p-8 sm:p-12 overflow-hidden">
+        
+        <!-- Divisor em Onda S Orgânica (Estilo Gifter Card 2) no Desktop -->
+        <svg class="hidden lg:block absolute top-0 -left-1 h-full w-24 text-[#F5E6D6] pointer-events-none z-10" preserveAspectRatio="none" viewBox="0 0 100 600" fill="currentColor">
+          <path d="M0,0 L75,0 C15,160 105,360 35,600 L0,600 Z"></path>
+        </svg>
+
+        <!-- Botão Medalhão Circular Flutuante na Curva (Assinatura Visual do Gifter 74228) -->
+        <a 
+          href="#catalogo"
+          class="hidden lg:flex absolute left-5 top-1/2 -translate-y-1/2 z-30 w-14 h-14 rounded-full bg-crimson-600 hover:bg-crimson-500 text-gold-200 items-center justify-center shadow-2xl border-4 border-champagne-200 transition-transform hover:scale-110"
+          title="Explorar Peças"
+        >
+          <span class="text-lg">✦</span>
+        </a>
+
+        <!-- Fios Dourados com Enfeites Suspensos no Topo Direito -->
+        <div class="absolute top-0 right-10 flex gap-8 pointer-events-none z-10">
+          <div class="flex flex-col items-center hanging-ornament">
+            <div class="w-[1px] h-16 bg-gold-300/50"></div>
+            <div class="w-7 h-7 rounded-full bg-gold-400/25 border border-gold-300 flex items-center justify-center text-gold-200 text-xs shadow-md">★</div>
+          </div>
+          <div class="flex flex-col items-center hanging-ornament-reverse">
+            <div class="w-[1px] h-24 bg-gold-300/50"></div>
+            <div class="w-8 h-8 rounded-full bg-salmon-300/25 border border-salmon-200 flex items-center justify-center text-salmon-200 text-xs shadow-md">♥</div>
+          </div>
+        </div>
+
+        <!-- Lua Cheia Iluminada + Estrelas (Inspirado na Cena Noturna do Gifter 74228) -->
+        <div class="absolute top-8 left-1/4 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-br from-champagne-50 via-gold-100 to-gold-300 opacity-90 shadow-[0_0_60px_rgba(249,241,222,0.55)] pointer-events-none"></div>
+        <span class="absolute top-12 right-1/3 text-gold-300/80 text-lg star-twinkle pointer-events-none">✦</span>
+        <span class="absolute bottom-16 left-12 text-gold-200/70 text-sm star-twinkle-delayed pointer-events-none">★</span>
+        <span class="absolute top-1/3 right-8 text-salmon-200/70 text-base star-twinkle pointer-events-none">❄</span>
+
+        <!-- Collage de Cards Polaroid / Presentes 3D em Destaque (Inspirado nos Cards de Fotos do Gifter) -->
+        <div class="relative z-20 w-full max-w-md flex flex-col sm:flex-row items-center justify-center gap-5 pt-6">
+          
+          <!-- Polaroid 1: Enfeite de Porta - Presépio -->
+          <div 
+            class="polaroid-card w-60 sm:w-56 -rotate-3 cursor-pointer js-open-details group"
+            data-id="enfeite-de-porta-presepio"
+            title="Clique para ver detalhes do Enfeite de Porta - Presépio"
+          >
+            <div class="relative aspect-square rounded-xl overflow-hidden bg-champagne-200">
+              <img 
+                src="assets/img/products/Enfeite%20de%20Porta%20-%20Pres%C3%A9pio/image.jpg" 
+                alt="Enfeite de Porta - Presépio" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              >
+              <span class="absolute top-2 left-2 bg-crimson-800/90 backdrop-blur-xs text-gold-200 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                ★ Destaque
+              </span>
+            </div>
+            <div class="mt-3 text-center">
+              <h3 class="font-serif font-bold text-gold-900 text-base leading-tight group-hover:text-crimson-700 transition-colors">
+                Presépio de Porta 3D
+              </h3>
+              <p class="text-xs font-extrabold text-crimson-700 mt-0.5">R$ 27,90</p>
+            </div>
+          </div>
+
+          <!-- Polaroid 2: Rolinha da Amizade -->
+          <div 
+            class="polaroid-card w-60 sm:w-52 rotate-3 sm:mt-10 cursor-pointer js-open-details group"
+            data-id="rolinha-esqueceram-de-mim"
+            title="Clique para ver detalhes da Rolinha da Amizade"
+          >
+            <div class="relative aspect-square rounded-xl overflow-hidden bg-champagne-200">
+              <img 
+                src="assets/img/products/rolinha-esqueceram-de-mim/rolinha%20capa.jpeg" 
+                alt="Rolinha da Amizade" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              >
+              <span class="absolute top-2 left-2 bg-gold-700/90 backdrop-blur-xs text-champagne-50 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                ♥ Afetivo
+              </span>
+            </div>
+            <div class="mt-3 text-center">
+              <h3 class="font-serif font-bold text-gold-900 text-base leading-tight group-hover:text-crimson-700 transition-colors">
+                Rolinha da Amizade
+              </h3>
+              <p class="text-xs font-extrabold text-crimson-700 mt-0.5">R$ 12,90</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Colinas Nevadas Suaves na Base Direita (Estilo Gifter Card 2) -->
+        <svg class="absolute bottom-0 left-0 w-full h-14 text-champagne-50/15 pointer-events-none" preserveAspectRatio="none" viewBox="0 0 400 60" fill="currentColor">
+          <path d="M0,40 Q120,0 240,35 T400,20 L400,60 L0,60 Z"></path>
+        </svg>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- ENFEITES PENDURADOS / DIFERENCIAIS LABELA (ESTILO GIFTER BAUBLES CARD 3)  -->
+  <!-- ========================================================================= -->
+  <section class="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-2 pb-10">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+      
+      <!-- Enfeite Circular 1 -->
+      <div class="flex flex-col items-center hanging-ornament">
+        <div class="w-[1.5px] h-6 sm:h-10 bg-gradient-to-b from-gold-400/20 to-gold-500"></div>
+        <div class="w-5 h-2.5 rounded-t-sm bg-gold-500 border border-gold-700/30"></div>
+        <div class="bauble-circle w-40 h-40 sm:w-44 sm:h-44 rounded-full bg-champagne-50 flex flex-col items-center justify-center p-5 text-center relative">
+          <span class="text-crimson-700 text-xl mb-1">♥</span>
+          <h3 class="font-serif font-bold text-gold-900 text-base sm:text-lg leading-tight">Feito com Afeto</h3>
+          <p class="text-[11px] text-gold-700/85 mt-1 leading-snug">Peças pensadas para emocionar e eternizar momentos</p>
+        </div>
+      </div>
+
+      <!-- Enfeite Circular 2 -->
+      <div class="flex flex-col items-center hanging-ornament-reverse">
+        <div class="w-[1.5px] h-10 sm:h-16 bg-gradient-to-b from-gold-400/20 to-gold-500"></div>
+        <div class="w-5 h-2.5 rounded-t-sm bg-crimson-700 border border-gold-400/40"></div>
+        <div class="bauble-circle w-40 h-40 sm:w-44 sm:h-44 rounded-full bg-champagne-50 flex flex-col items-center justify-center p-5 text-center relative">
+          <span class="text-gold-600 text-xl mb-1">✦</span>
+          <h3 class="font-serif font-bold text-gold-900 text-base sm:text-lg leading-tight">Impressão 3D</h3>
+          <p class="text-[11px] text-gold-700/85 mt-1 leading-snug">Acabamento delicado em PLA biodegradável de alta precisão</p>
+        </div>
+      </div>
+
+      <!-- Enfeite Circular 3 -->
+      <div class="flex flex-col items-center hanging-ornament-slow">
+        <div class="w-[1.5px] h-5 sm:h-8 bg-gradient-to-b from-gold-400/20 to-gold-500"></div>
+        <div class="w-5 h-2.5 rounded-t-sm bg-gold-500 border border-gold-700/30"></div>
+        <div class="bauble-circle w-40 h-40 sm:w-44 sm:h-44 rounded-full bg-champagne-50 flex flex-col items-center justify-center p-5 text-center relative">
+          <span class="text-crimson-700 text-xl mb-1">★</span>
+          <h3 class="font-serif font-bold text-gold-900 text-base sm:text-lg leading-tight">Personalizável</h3>
+          <p class="text-[11px] text-gold-700/85 mt-1 leading-snug">Opções em dourado, vermelho, bege, salmão e branco</p>
+        </div>
+      </div>
+
+      <!-- Enfeite Circular 4 -->
+      <div class="flex flex-col items-center hanging-ornament-reverse">
+        <div class="w-[1.5px] h-8 sm:h-14 bg-gradient-to-b from-gold-400/20 to-gold-500"></div>
+        <div class="w-5 h-2.5 rounded-t-sm bg-crimson-700 border border-gold-400/40"></div>
+        <div class="bauble-circle w-40 h-40 sm:w-44 sm:h-44 rounded-full bg-champagne-50 flex flex-col items-center justify-center p-5 text-center relative">
+          <span class="text-salmon-500 text-xl mb-1">🎁</span>
+          <h3 class="font-serif font-bold text-gold-900 text-base sm:text-lg leading-tight">Pedido Direto</h3>
+          <p class="text-[11px] text-gold-700/85 mt-1 leading-snug">Monte sua sacola online e finalize rápido pelo WhatsApp</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- CONTEÚDO PRINCIPAL: CATÁLOGO DE PRODUTOS LABELA                           -->
+  <!-- ========================================================================= -->
+  <main id="catalogo" class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- Cabeçalho Centralizado estilo Gifter Greeting Card -->
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <div class="inline-flex items-center gap-2 text-crimson-700 text-xs font-extrabold uppercase tracking-[0.25em] mb-1">
+        <span class="text-gold-500">★</span>
+        <span>Atelier Labela</span>
+        <span class="text-gold-500">★</span>
+      </div>
+      <h2 class="font-script text-4xl sm:text-5xl text-crimson-800 leading-tight">
+        Coleção de Natal &amp; Presentes
+      </h2>
+      <div class="flex items-center justify-center gap-3 my-2.5">
+        <span class="w-16 h-[1px] bg-gold-500/40"></span>
+        <span class="text-salmon-400 text-sm">♥</span>
+        <span class="w-16 h-[1px] bg-gold-500/40"></span>
+      </div>
+      <p id="productsCount" class="text-xs sm:text-sm text-gold-700 font-medium">Carregando peças exclusivas...</p>
+    </div>
+
+    <!-- Barra de Filtros (Categorias + Ordenação) -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-4 border-b border-gold-400/30">
+      
+      <!-- Pílulas de Categoria Dinâmicas -->
+      <div id="categoryFilters" class="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 no-scrollbar hidden">
+        <!-- Injetado via JS -->
+      </div>
+
+      <!-- Ordenação -->
+      <div class="flex items-center justify-end gap-2 ml-auto">
+        <label for="sortSelect" class="text-xs sm:text-sm text-gold-800 font-medium">Ordenar por:</label>
+        <select 
+          id="sortSelect"
+          class="bg-champagne-50 border border-gold-400/50 text-gold-900 text-xs sm:text-sm rounded-full px-4 py-2 focus:ring-2 focus:ring-crimson-600 focus:outline-none shadow-xs font-semibold cursor-pointer"
+        >
+          <option value="default">Destaques da Coleção</option>
+          <option value="price-asc">Menor Preço</option>
+          <option value="price-desc">Maior Preço</option>
+          <option value="name-asc">Nome (A - Z)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Feedback de Carregamento (Skeleton Loaders) -->
+    <div id="loadingSkeleton" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7">
+      <div class="bg-champagne-50 rounded-3xl p-5 border border-gold-300/40 flex flex-col animate-pulse">
+        <div class="aspect-square bg-champagne-200 rounded-2xl mb-4"></div>
+        <div class="h-4 bg-champagne-200 rounded w-3/4 mb-2 mx-auto"></div>
+        <div class="h-3 bg-champagne-200 rounded w-1/2 mb-4 mx-auto"></div>
+        <div class="mt-auto h-10 bg-champagne-200 rounded-full"></div>
+      </div>
+      <div class="bg-champagne-50 rounded-3xl p-5 border border-gold-300/40 flex flex-col animate-pulse">
+        <div class="aspect-square bg-champagne-200 rounded-2xl mb-4"></div>
+        <div class="h-4 bg-champagne-200 rounded w-3/4 mb-2 mx-auto"></div>
+        <div class="h-3 bg-champagne-200 rounded w-1/2 mb-4 mx-auto"></div>
+        <div class="mt-auto h-10 bg-champagne-200 rounded-full"></div>
+      </div>
+      <div class="bg-champagne-50 rounded-3xl p-5 border border-gold-300/40 flex flex-col animate-pulse">
+        <div class="aspect-square bg-champagne-200 rounded-2xl mb-4"></div>
+        <div class="h-4 bg-champagne-200 rounded w-3/4 mb-2 mx-auto"></div>
+        <div class="h-3 bg-champagne-200 rounded w-1/2 mb-4 mx-auto"></div>
+        <div class="mt-auto h-10 bg-champagne-200 rounded-full"></div>
+      </div>
+      <div class="bg-champagne-50 rounded-3xl p-5 border border-gold-300/40 flex flex-col animate-pulse">
+        <div class="aspect-square bg-champagne-200 rounded-2xl mb-4"></div>
+        <div class="h-4 bg-champagne-200 rounded w-3/4 mb-2 mx-auto"></div>
+        <div class="h-3 bg-champagne-200 rounded w-1/2 mb-4 mx-auto"></div>
+        <div class="mt-auto h-10 bg-champagne-200 rounded-full"></div>
+      </div>
+    </div>
+
+    <!-- Grid de Produtos Renderizados -->
+    <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7 hidden">
+      <!-- Inserido dinamicamente via JS -->
+    </div>
+
+    <!-- Estado Vazio (Nenhum produto encontrado) -->
+    <div id="emptyState" class="hidden text-center py-20 bg-champagne-50 rounded-3xl border border-dashed border-gold-400/60 p-8 shadow-xs">
+      <div class="w-16 h-16 mx-auto mb-4 bg-champagne-200 rounded-full flex items-center justify-center text-crimson-700">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </div>
+      <h3 class="font-serif text-2xl font-bold text-gold-900">Nenhuma peça encontrada</h3>
+      <p class="text-sm text-gold-700 mt-1 max-w-sm mx-auto">Tente buscar por outro termo ou limpe o filtro para visualizar todas as criações da Labela.</p>
+      <button id="resetSearchBtn" class="mt-5 px-6 py-2.5 bg-crimson-700 text-white rounded-full text-xs font-bold hover:bg-crimson-800 transition-colors shadow-sm">
+        Mostrar Todas as Peças
+      </button>
+    </div>
+
+    <!-- Estado de Erro -->
+    <div id="errorState" class="hidden text-center py-16 bg-crimson-50 rounded-3xl border border-crimson-200 p-6">
+      <div class="w-14 h-14 mx-auto mb-3 bg-crimson-100 rounded-full flex items-center justify-center text-crimson-700">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+        </svg>
+      </div>
+      <h3 class="font-serif text-xl font-bold text-crimson-800">Erro ao carregar o catálogo</h3>
+      <p id="errorMessage" class="text-sm text-crimson-700 mt-1 max-w-md mx-auto">
+        Não foi possível sincronizar os produtos no momento.
+      </p>
+      <button id="retryBtn" class="mt-4 px-5 py-2 bg-crimson-700 text-white rounded-full text-sm font-semibold hover:bg-crimson-800">
+        Tentar Novamente
+      </button>
+    </div>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL DE DETALHES DO PRODUTO (COM CARROSSEL)                              -->
+  <!-- ========================================================================= -->
+  <div 
+    id="productModal" 
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-crimson-950/75 backdrop-blur-md hidden"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div 
+      id="productModalCard" 
+      class="bg-champagne-50 text-gold-900 w-full max-w-3xl rounded-[2rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh] modal-enter border-2 border-gold-400/50"
+    >
+      <!-- Cabeçalho do Modal -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gold-300/40 bg-champagne-200/70">
+        <div class="flex items-center gap-2">
+          <span class="text-crimson-700">♥</span>
+          <h3 id="modalProductTitleHeader" class="text-xs font-bold text-gold-800 uppercase tracking-[0.2em] truncate pr-4">
+            Detalhes da Criação Labela
+          </h3>
+        </div>
+        <button 
+          id="closeProductModalBtn" 
+          class="w-8 h-8 rounded-full bg-champagne-300/70 hover:bg-crimson-700 text-gold-900 hover:text-white flex items-center justify-center transition-colors"
+          aria-label="Fechar Detalhes"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Corpo do Modal: Split Galeria + Infos -->
+      <div class="overflow-y-auto p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Galeria de Imagens / Carrossel -->
+        <div class="flex flex-col gap-3.5">
+          <!-- Visor Principal -->
+          <div class="relative aspect-square w-full bg-champagne-200 rounded-2xl overflow-hidden border border-gold-400/40 group shadow-inner">
+            <img 
+              id="carouselMainImg" 
+              src="" 
+              alt="Imagem do Produto" 
+              class="w-full h-full object-cover transition-opacity duration-300"
+            >
+
+            <!-- Botão Imagem Anterior -->
+            <button 
+              id="carouselPrevBtn"
+              class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-champagne-50/90 hover:bg-white text-crimson-800 shadow-md flex items-center justify-center transition-all hover:scale-105 active:scale-95"
+              aria-label="Imagem anterior"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+              </svg>
+            </button>
+
+            <!-- Botão Próxima Imagem -->
+            <button 
+              id="carouselNextBtn"
+              class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-champagne-50/90 hover:bg-white text-crimson-800 shadow-md flex items-center justify-center transition-all hover:scale-105 active:scale-95"
+              aria-label="Próxima imagem"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+              </svg>
+            </button>
+
+            <!-- Badge Indicador de Imagem -->
+            <div id="carouselBadge" class="absolute bottom-3 right-3 bg-crimson-900/85 backdrop-blur-md text-gold-200 text-[11px] px-3 py-1 rounded-full font-semibold border border-gold-400/30">
+              1 / 1
+            </div>
+          </div>
+
+          <!-- Miniaturas (Thumbnails) -->
+          <div id="carouselThumbnails" class="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+            <!-- Miniaturas injetadas via JS -->
+          </div>
+        </div>
+
+        <!-- Informações do Produto -->
+        <div class="flex flex-col justify-between">
+          <div>
+            <!-- Badges de Artesanato & 3D -->
+            <div class="flex flex-wrap items-center gap-2 mb-3">
+              <span class="inline-flex items-center gap-1 px-3 py-0.5 rounded-full text-[10px] font-bold bg-crimson-50 text-crimson-800 border border-crimson-200">
+                <span>♥</span> Feito com Afeto
+              </span>
+              <span class="inline-flex items-center gap-1 px-3 py-0.5 rounded-full text-[10px] font-bold bg-gold-100 text-gold-800 border border-gold-300">
+                <span>★</span> Impressão 3D Alta Precisão
+              </span>
+            </div>
+
+            <h2 id="modalProductName" class="font-serif text-2xl sm:text-3xl font-bold text-gold-900 leading-tight">
+              Nome do Produto
+            </h2>
+            <div class="mt-3 flex items-baseline gap-2">
+              <span id="modalProductPrice" class="text-3xl font-extrabold text-crimson-700">
+                R$ 0,00
+              </span>
+              <span class="text-xs text-gold-700 font-medium">/ unidade</span>
+            </div>
+
+            <div class="mt-5 border-t border-gold-300/40 pt-4">
+              <h4 class="text-xs font-bold text-gold-700 uppercase tracking-wider mb-2">Detalhes &amp; Especificações</h4>
+              <p id="modalProductDescription" class="text-gold-800 text-sm leading-relaxed whitespace-pre-line">
+                Descrição completa do produto.
+              </p>
+            </div>
+          </div>
+
+          <!-- Ação: Adicionar à Sacola -->
+          <div class="mt-8 border-t border-gold-300/40 pt-5">
+            <div class="flex items-center gap-3">
+              <!-- Seletor de Quantidade -->
+              <div class="flex items-center border border-gold-400/50 rounded-full overflow-hidden bg-champagne-100">
+                <button 
+                  id="modalQtyMinus"
+                  class="w-10 h-11 flex items-center justify-center text-gold-800 hover:bg-champagne-200 transition-colors text-base font-bold"
+                >-</button>
+                <span id="modalQtyValue" class="w-9 text-center font-bold text-crimson-800 text-sm">1</span>
+                <button 
+                  id="modalQtyPlus"
+                  class="w-10 h-11 flex items-center justify-center text-gold-800 hover:bg-champagne-200 transition-colors text-base font-bold"
+                >+</button>
+              </div>
+
+              <!-- Botão Adicionar -->
+              <button 
+                id="modalAddToCartBtn"
+                class="flex-1 py-3.5 px-6 rounded-full bg-crimson-700 hover:bg-crimson-800 text-white font-bold text-sm flex items-center justify-center gap-2.5 shadow-lg shadow-crimson-900/20 active:scale-95 transition-all group border border-gold-300/40"
+              >
+                <svg class="w-4 h-4 text-gold-300 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                </svg>
+                Adicionar à Sacola
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL / DRAWER DA SACOLA DE COMPRAS                                       -->
+  <!-- ========================================================================= -->
+  <div 
+    id="cartModal" 
+    class="fixed inset-0 z-50 flex items-center justify-center md:justify-end p-0 bg-crimson-950/70 backdrop-blur-md hidden"
+    role="dialog"
+    aria-modal="true"
+  >
+    <!-- Drawer Container -->
+    <div 
+      id="cartModalCard"
+      class="bg-champagne-50 text-gold-900 w-full max-w-md h-full md:h-screen flex flex-col shadow-2xl modal-enter border-l-2 border-gold-400/50"
+    >
+      <!-- Cabeçalho da Sacola -->
+      <div class="px-6 py-5 border-b border-gold-300/40 flex items-center justify-between bg-champagne-200/70">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-crimson-700 text-gold-200 flex items-center justify-center shadow-sm">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-serif text-xl font-bold text-gold-900">Sua Sacola Labela</h3>
+            <span id="cartItemSummaryCount" class="text-xs text-gold-700">0 itens selecionados</span>
+          </div>
+        </div>
+
+        <button 
+          id="closeCartModalBtn"
+          class="w-8 h-8 rounded-full bg-champagne-300/70 hover:bg-crimson-700 text-gold-900 hover:text-white flex items-center justify-center transition-colors"
+          aria-label="Fechar Sacola"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Lista de Itens -->
+      <div id="cartItemsList" class="flex-1 overflow-y-auto p-6 space-y-4 divide-y divide-gold-300/30">
+        <!-- Renderizado dinamicamente via JS -->
+      </div>
+
+      <!-- Estado de Sacola Vazia -->
+      <div id="emptyCartView" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center">
+        <div class="w-16 h-16 rounded-full bg-champagne-200 text-crimson-700 flex items-center justify-center mb-4 border border-gold-400/40">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+        </div>
+        <h4 class="font-serif text-2xl font-bold text-gold-900">Sua sacola está vazia</h4>
+        <p class="text-xs text-gold-700 mt-1 max-w-xs leading-relaxed">
+          Escolha seus enfeites e personalizados favoritos no catálogo para enviar seu pedido pelo WhatsApp.
+        </p>
+        <button 
+          id="continueShoppingBtn"
+          class="mt-5 px-6 py-2.5 bg-crimson-700 text-white rounded-full text-xs font-bold hover:bg-crimson-800 transition-colors shadow-sm"
+        >
+          Explorar Coleção
+        </button>
+      </div>
+
+      <!-- Rodapé / Resumo e Checkout -->
+      <div id="cartFooter" class="p-6 bg-champagne-200/60 border-t border-gold-300/50 space-y-4">
+        
+        <!-- Totais -->
+        <div class="space-y-1.5">
+          <div class="flex justify-between items-center text-xs text-gold-800">
+            <span>Subtotal das Peças</span>
+            <span id="cartSubtotalValue" class="font-semibold text-gold-900">R$ 0,00</span>
+          </div>
+          <div class="flex justify-between items-center text-xs text-gold-800">
+            <span>Personalização &amp; Entrega</span>
+            <span class="text-crimson-700 font-bold uppercase text-[11px]">A combinar no WhatsApp</span>
+          </div>
+          <div class="flex justify-between items-center text-base font-bold text-gold-900 pt-2 border-t border-gold-400/40">
+            <span>Total Estimado</span>
+            <span id="cartTotalValue" class="text-xl font-extrabold text-crimson-700">R$ 0,00</span>
+          </div>
+        </div>
+
+        <!-- Botão WhatsApp Checkout -->
+        <button 
+          id="whatsappCheckoutBtn"
+          class="w-full py-3.5 px-6 rounded-full bg-crimson-700 hover:bg-crimson-800 active:scale-[0.98] text-white font-bold text-sm flex items-center justify-center gap-2.5 shadow-lg shadow-crimson-900/25 transition-all group border border-gold-300/40"
+        >
+          <svg class="w-5 h-5 fill-gold-300 group-hover:scale-105 transition-transform" viewBox="0 0 24 24">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.698.057-1.114-.076-.26-.083-.591-.202-1.025-.391-1.832-.799-3.033-2.656-3.125-2.778-.092-.122-.743-.988-.743-1.884 0-.897.469-1.339.636-1.512.167-.173.365-.216.486-.216.122 0 .243.001.348.006.111.006.26-.042.406.31.152.366.517 1.264.563 1.356.046.091.076.198.015.319-.06.122-.091.198-.182.304-.091.107-.193.238-.276.32-.092.091-.188.19-.08.376.107.185.474.781 1.017 1.265.7.625 1.291.819 1.474.91.183.091.29.076.396-.046.107-.122.457-.533.579-.715.122-.183.244-.152.41-.091.168.06 1.066.502 1.249.593.183.092.305.137.35.213.046.077.046.444-.098.849zM12 2C6.477 2 2 6.477 2 12c0 1.891.528 3.659 1.444 5.176L2 22l4.982-1.306C8.423 21.536 10.15 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/>
+          </svg>
+          Finalizar Pedido pelo WhatsApp
+        </button>
+
+        <p class="text-[11px] text-center text-gold-700">
+          Você combinará cores, personalizações, prazo e entrega diretamente conosco.
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- BOTÃO FLUTUANTE DA SACOLA (FAB)                                           -->
+  <!-- ========================================================================= -->
+  <button 
+    id="cartFloatingBtn"
+    class="fixed bottom-6 right-6 z-40 bg-crimson-700 hover:bg-crimson-800 text-white w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 group focus:outline-none border-2 border-gold-300"
+    aria-label="Abrir Sacola de Compras"
+  >
+    <svg class="w-6 h-6 text-champagne-100 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+    </svg>
+    <!-- Badge Flutuante -->
+    <span 
+      id="floatingCartCount" 
+      class="absolute -top-1 -right-1 bg-gold-300 text-crimson-950 text-xs font-black w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center border-2 border-white shadow-md"
+    >
+      0
+    </span>
+  </button>
+
+  <!-- ========================================================================= -->
+  <!-- TOAST NOTIFICATION                                                        -->
+  <!-- ========================================================================= -->
+  <div 
+    id="toastNotification" 
+    class="fixed bottom-24 left-1/2 -translate-x-1/2 sm:left-6 sm:translate-x-0 z-50 bg-crimson-900 text-champagne-50 px-5 py-3.5 rounded-full shadow-xl flex items-center gap-3 hidden border border-gold-400/50 toast-enter"
+  >
+    <div class="w-6 h-6 rounded-full bg-gold-400 text-crimson-950 flex items-center justify-center font-bold text-xs">
+      ♥
+    </div>
+    <span id="toastMessage" class="text-sm font-medium">Peça adicionada à sua sacola!</span>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- RODAPÉ EM VERMELHO VELUDO, DOURADO & BEGE CHAMPAGNE                       -->
+  <!-- ========================================================================= -->
+  <footer class="bg-crimson-950 text-champagne-200 border-t-2 border-gold-500/30 pt-14 pb-10 mt-16 relative z-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+        
+        <div class="flex flex-col sm:flex-row items-center gap-4">
+          <img 
+            src="assets/img/logo.jpeg" 
+            alt="Labela Logo" 
+            class="w-16 h-16 rounded-full object-cover border-2 border-gold-400/60 shadow-md"
+          >
+          <div>
+            <div class="flex items-center justify-center sm:justify-start gap-2">
+              <span class="font-serif text-2xl font-bold tracking-wider text-champagne-50 uppercase">Labela</span>
+              <span class="text-salmon-300 text-xs">♥</span>
+              <span class="text-xs text-gold-300 font-semibold uppercase tracking-widest">Personalizados &amp; 3D</span>
+            </div>
+            <p class="text-xs text-champagne-300/80 mt-1.5 max-w-md leading-relaxed">
+              Transformando afeto em lembranças únicas, enfeites natalinos e peças personalizadas impressas em 3D com riqueza de detalhes.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center gap-4 text-xs">
+          <span class="font-script text-2xl text-gold-300">
+            Feliz Natal &amp; Boas Festas!
+          </span>
+          <span class="hidden sm:inline text-gold-500/40">•</span>
+          <a href="#top" class="px-4 py-2 rounded-full bg-crimson-900 hover:bg-crimson-800 text-gold-200 border border-gold-400/30 transition-colors font-semibold">
+            Voltar ao topo ↑
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-10 pt-6 border-t border-crimson-900 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-champagne-300/60">
+        <p>&copy; <span id="currentYear"></span> Labela Personalizados &amp; 3D. Todos os direitos reservados.</p>
+        <p class="flex items-center gap-2">
+          <span>Feito com amor</span>
+          <span class="text-salmon-300">♥</span>
+          <span>Impressão 3D Ecológica</span>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Base de Dados dos Produtos -->
+  <script src="products.js"></script>
+  <!-- Script Principal da Aplicação -->
+  <script src="app.js"></script>
 </body>
 </html>
